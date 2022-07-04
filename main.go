@@ -25,6 +25,7 @@ type Repository struct {
 	DB *gorm.DB
 }
 
+// Create Book Record Method #############################################
 func (r *Repository) CreateBook(context *fiber.Ctx) error {
 	book := Book{}
 
@@ -44,10 +45,12 @@ func (r *Repository) CreateBook(context *fiber.Ctx) error {
 	}
 
 	context.Status(http.StatusOK).JSON(&fiber.Map{
-		"message": "book has been added"})
+		"message": "book has been added",
+	})
 	return nil
 }
 
+// Delete Book Record Method #############################################
 func (r *Repository) DeleteBook(context *fiber.Ctx) error {
 	bookModel := models.Books{}
 	id := context.Params("id")
@@ -72,6 +75,7 @@ func (r *Repository) DeleteBook(context *fiber.Ctx) error {
 	return nil
 }
 
+// Get all Book Record Method #############################################
 func (r *Repository) GetBooks(context *fiber.Ctx) error {
 	bookModels := &[]models.Books{}
 
@@ -89,6 +93,7 @@ func (r *Repository) GetBooks(context *fiber.Ctx) error {
 	return nil
 }
 
+// Get by ID Book Record Method #############################################
 func (r *Repository) GetBookByID(context *fiber.Ctx) error {
 
 	id := context.Params("id")
@@ -115,6 +120,7 @@ func (r *Repository) GetBookByID(context *fiber.Ctx) error {
 	return nil
 }
 
+// Setup url end points or routes
 func (r *Repository) SetupRoutes(app *fiber.App) {
 	api := app.Group("/api")
 	api.Post("/create_books", r.CreateBook)
